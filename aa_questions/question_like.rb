@@ -52,6 +52,12 @@ class QuestionLike < Model
     end
   end
   
+  def self.most_liked_questions(n)
+    Question.all.sort_by do |question|
+      question.likers.length
+    end.reverse[0...n]
+  end
+  
   def attributes
     ['user_id', 'question_id']
   end

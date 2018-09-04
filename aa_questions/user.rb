@@ -32,4 +32,14 @@ class User < Model
   def followed_questions
     QuestionFollow.followed_questions_for_user_id(@id)
   end
+  
+  def liked_questions
+    QuestionLike.liked_questions_for_user_id(@id)
+  end
+  
+  def average_karma
+    authored_questions.map do |question|
+      question.num_likes
+    end.sum / authored_questions.length
+  end
 end

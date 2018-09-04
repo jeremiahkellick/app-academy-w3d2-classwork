@@ -42,6 +42,10 @@ class Model
     SQL
   end
   
+  def save
+    @id ? update : create
+  end
+  
   def self.all
     data = QuestionsDB.instance.execute("SELECT * FROM #{self.database_name}")
     data.map { |datum| self.new(datum) }
