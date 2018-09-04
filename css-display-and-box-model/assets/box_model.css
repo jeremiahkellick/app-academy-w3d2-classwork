@@ -62,12 +62,12 @@ select {
 }
 
 input[type="radio"] {
-    -webkit-appearance: none;
-    width: 27px;
-    height: 27px;
-    background-image: url(stars.png);
-    vertical-align: bottom;
-    display: inline-block;
+  -webkit-appearance: none;
+  width: 27px;
+  height: 27px;
+  background-image: url(stars.png);
+  vertical-align: bottom;
+  display: inline-block;
 }
 
 input[type="radio"]:hover {
