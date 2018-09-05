@@ -63,4 +63,40 @@ class Model
     
     self.new(model_hash)
   end
+  
+  def self.where(options)
+    if options.is_a?(String)
+      model_hashes = QuestionsDB.instance.execute(<<-SQL)
+        SELECT
+          *
+        FROM
+          #{database_name}
+        WHERE
+          #{options}
+      SQL
+    else
+      model_hashes = QuestionsDB.instance.execute(<<-SQL, *options.values)
+        SELECT
+          *
+        FROM
+          #{database_name}
+        WHERE
+          #{options.keys.map { |attribute| "#{attribute} = ?" }.join(" AND ")}
+      SQL
+    end
+    model_hashes.map { |model_hash| self.new(model_hash) }
+  end
+  
+  def self.find_by(options)
+    model_hash = QuestionsDB.instance.execute(<<-SQL, *options.values).first
+      SELECT
+        *
+      FROM
+        #{database_name}
+      WHERE
+        #{options.keys.map { |attribute| "#{attribute} = ?" }.join(" AND ")}
+    SQL
+    
+    self.new(model_hash)
+  end
 end
